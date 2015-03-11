@@ -32,5 +32,10 @@
         android:id="@+id/Etcompse"
         android:layout_below="@+id/Bcancel"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp" />
+        android:layout_marginTop="84dp"
+        android:autoText="false"
+        android:editable="true"
+        android:elegantTextHeight="true"
+        android:gravity="left"
+        android:hint="send 140 character" />
 </RelativeLayout>

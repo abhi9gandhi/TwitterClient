@@ -18,6 +18,7 @@ public class ComposeActivity extends ActionBarActivity {
     }
 
     public void cancelCompose(View view) {
+        setResult(0, null);
         finish();
     }
 
@@ -27,6 +28,7 @@ public class ComposeActivity extends ActionBarActivity {
         Intent i = new Intent();
         i.putExtra("tweet", tweetText);
         setResult(1, i);
+        finish();
     }
 
     @Override

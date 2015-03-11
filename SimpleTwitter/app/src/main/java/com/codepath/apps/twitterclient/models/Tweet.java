@@ -18,14 +18,28 @@ import com.activeandroid.query.Select;
  * https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model
  * 
  */
-@Table(name = "items")
+@Table(name = "tweet")
 public class Tweet extends Model {
 	// Define table fields
-	@Column(name = "name")
+
+	@Column(name = "user",onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     private User user;
+    @Column(name = "tweetId")
+    private long tweetId;
+    @Column(name = "text")
 	private String text;
+    @Column(name = "createAt")
     private String createdAt;
+    @Column(name = "retweetCount")
     private int retweetCount;
+
+    public long getTweetId() {
+        return tweetId;
+    }
+
+    public void setTweetId(long tweetId) {
+        this.tweetId = tweetId;
+    }
 
     public User getUser() {
         return user;
@@ -67,9 +81,11 @@ public class Tweet extends Model {
 			this.text = object.getString("text");
             this.createdAt = object.getString("created_at");
             this.retweetCount = object.getInt("retweet_count");
-            this.user = new User(object.getJSONObject("user"));
 
-           // this.createdAt = DateUtils.getRelativeTimeSpanString(temp * 1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+            this.tweetId = object.getLong("id");
+            this.user = new User(object.getJSONObject("user"), this.tweetId);
+            this.user.save();
+            this.save();
 
         } catch (JSONException e) {
 			e.printStackTrace();
@@ -90,13 +106,17 @@ public class Tweet extends Model {
         return array;
     }
 
+    // Make sure to have a default constructor for every ActiveAndroid model
+    public Tweet(){
+        super();
+    }
 
-	// Record Finders
-	public static Tweet byId(long id) {
-		return new Select().from(Tweet.class).where("id = ?", id).executeSingle();
-	}
 
-	public static List<Tweet> recentItems() {
+
+	public static List<Tweet> recentTweets() {
 		return new Select().from(Tweet.class).orderBy("id DESC").limit("300").execute();
 	}
 }
+
+
+
