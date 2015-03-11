@@ -23,4 +23,4 @@ Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-
 Tweets are persisted into sqlite and can be displayed from the local DB
 
 
-![alt tag](https://github.com/abhi9gandhi/ImageSearch/blob/master/ImageSearch.gif)
+![alt tag](https://github.com/abhi9gandhi/TwitterClient/blob/master/SimpleTwitter.gif)
